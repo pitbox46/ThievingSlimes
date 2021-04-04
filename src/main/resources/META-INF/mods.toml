@@ -56,3 +56,9 @@ mandatory = true
 versionRange = "[1.16.5,1.17)"
 ordering = "NONE"
 side = "BOTH"
+[[dependencies.thievingslimes]]
+modId = "slimyboyos"
+mandatory = true
+versionRange = "[3.1.0.10, 3.1.1)"
+ordering = "NONE"
+side = "BOTH"
