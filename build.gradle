@@ -17,6 +17,13 @@ archivesBaseName = 'thievingslimes'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
+repositories {
+    maven {
+        name = 'blamejared_maven'
+        url = 'https://maven.blamejared.com/'
+    }
+}
+
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   Snapshot are built nightly.
@@ -97,11 +104,12 @@ dependencies {
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"
 
+    compile "com.blamejared.slimyboyos:SlimyBoyos:${slimyboyos_version}:deobf"
+
     // Real examples
     // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
 
-    compile fileTree(include: ['*.jar'], dir: 'libs')
     // Your might already have other librarires/dependencies here you should leave them
     // as they are and just add your on new line
 
