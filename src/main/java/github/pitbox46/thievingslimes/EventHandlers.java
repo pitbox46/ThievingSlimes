@@ -20,11 +20,10 @@ public class EventHandlers {
     @SubscribeEvent
     public void onEntityDamaged(LivingDamageEvent damageEvent) {
         Entity entity = damageEvent.getEntity();
-        DamageSource source = damageEvent.getSource();
-        if(entity instanceof PlayerEntity && source.getTrueSource() != null) {
-            source.getTrueSource().getCapability(SlimeAbsorptionCapability.SLIME_ABSORPTION).ifPresent(slimeAbsorption -> {
+        Entity source = damageEvent.getSource().getTrueSource();
+        if(entity instanceof PlayerEntity && source != null) {
+            source.getCapability(SlimeAbsorptionCapability.SLIME_ABSORPTION).ifPresent(slimeAbsorption -> {
                 if(entity.getEntityWorld().getRandom().nextInt(10) != 0) return;
-                SlimeEntity slime = (SlimeEntity) source.getTrueSource();
                 if(slimeAbsorption.getAbsorbedStack() != ItemStack.EMPTY) return;
                 PlayerEntity player = (PlayerEntity) entity;
                 int selectedSlot = entity.getEntityWorld().getRandom().nextInt(6);
@@ -43,7 +42,7 @@ public class EventHandlers {
                 }
                 slimeAbsorption.setAbsorbedStack(itemStack);
                 PacketHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> damageEvent.getSource().getTrueSource()),
-                        new MessageItemSteal(player.getEntityId(), slime.getEntityId(), itemStack.copy()));
+                        new MessageItemSteal(player.getEntityId(), source.getEntityId(), itemStack.copy()));
             });
         }
     }
